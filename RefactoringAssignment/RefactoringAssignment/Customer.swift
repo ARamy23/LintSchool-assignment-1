@@ -123,22 +123,18 @@ class Customer {
     }
 }
  
-protocol ServiceInfoProtocol {
+protocol ServiceProtocol {
     var maxUsers: Int { get }
     var isPopular: Bool { get }
     var type: Int { get }
-}
-
-protocol ServiceCostsProtocol {
+    
     func applyTimeMultiplier(time: Int) -> Double
     func applyExtraCost(kilometers: Int, time: Int) -> Double
     func applyBaseFare() -> Double
     func applyTolls(tolls: [Int]) -> Double
     func applyDistanceLimitMutliplier(kilometers: Int, time: Int) -> Double
     func applySurgeMutliplier(isSurged: Bool, surgeRate: Double) -> Double
-}
-
-protocol ServicePointsProtocol {
+    
     func applyBasePoints(rideAmount: Double) -> Double
     func applySurgePoints(isSurged: Bool, surgeRate: Double) -> Double
     func applySurgePointsForServiceType(totalPoints: Double) -> Double
@@ -150,7 +146,11 @@ enum ServiceType {
     case uberBlack
 }
 
-extension ServiceType: ServiceInfoProtocol, ServiceCostsProtocol, ServicePointsProtocol {
+extension ServiceType: ServiceProtocol {
+    func applyBasePoints(rideAmount: Double) -> Double {
+        return rideAmount / 10
+    }
+    
     func applySurgePoints(isSurged: Bool, surgeRate: Double) -> Double {
         guard self == .uberX else { return 0 }
         return surgeRate * 10 - 10
@@ -252,20 +252,31 @@ extension ServiceType: ServiceInfoProtocol, ServiceCostsProtocol, ServicePointsP
 
 class Ride {
     
-    var service: Int
+    var service: ServiceProtocol
     var kilometers: Int
     var time: Int
     var tolls: [Int]
     var isSurged: Bool
     var surgeRate: Double
     
-    init(service: Int, kilometers: Int, time: Int, tolls: [Int], isSurged: Bool, surgeRate: Double) {
+    init(service: ServiceProtocol, kilometers: Int, time: Int, tolls: [Int], isSurged: Bool, surgeRate: Double) {
         self.service = service
         self.kilometers = kilometers
         self.time = time
         self.tolls = tolls
         self.isSurged = isSurged
         self.surgeRate = surgeRate
+    }
+    
+    func calculateRideAmount() -> Double {
+        var rideAmount = 50.0
+        rideAmount += service.applyBaseFare()
+        rideAmount += service.applyTimeMultiplier(time: time)
+        rideAmount += service.applyExtraCost(kilometers: kilometers, time: time)
+        rideAmount += rideAmount * service.applyDistanceLimitMutliplier(kilometers: kilometers, time: time)
+        rideAmount += service.applyTolls(tolls: tolls)
+        rideAmount += rideAmount * service.applySurgeMutliplier(isSurged: isSurged, surgeRate: surgeRate)
+        return rideAmount
     }
 }
  

@@ -55,7 +55,7 @@ class Customer {
             totalAmount+=rideAmount;
         }
         
-        result+=String(format:"Amount owed is LE %.2f, and %.2f point\n",totalAmount, Int(totalPoints));
+        result+=String(format:"Amount owed is LE %.2f, and %.2f point\n",totalAmount, totalPoints);
         
         return result;
     }

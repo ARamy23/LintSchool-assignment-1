@@ -42,7 +42,7 @@ LE 11050.00
 LE 3427.00
 LE 9115.00
 LE 26050.00
-Amount owed is LE 80114.50, and 0.00 point\n
+Amount owed is LE 80114.50, and 15421.45 point\n
 """
         
         XCTAssert(expectedString == returnedString)

@@ -23,22 +23,7 @@ class Customer {
     }
     
     /// Resposnibilities
-    /// 1. calculate totalAmount
-    ///     1. depend on KM
-    ///     2. depend on Time
-    ///     3. depend on Tolls
-    ///     4. depend on Surge
-    /// 2. caluclate totalPoints
-    ///     1. depend on RideAmount
-    ///     2. depend on Ride Type if chopper or UberBlack
-    /// 3. handle ride type and calculates each ride's cost
-    ///     1. applys time multiplier to ride amount
-    ///     2. applys extra cost after time limit
-    ///     3. applys base fare
-    ///     4. applys tolls on certain ride types
-    ///     5. if certain distance limit is reached, ride amount increases by 0.05%
-    ///     6. applys surge amount
-    /// 4.  print receipt
+    /// 1. print receipt
     func receipt() -> String {
         
         var totalAmount : Double = 0.0
@@ -46,13 +31,13 @@ class Customer {
 
         var result:String = "Receipt for:" + self.name + "\n"
         
-        for ride in familyRides {
+        familyRides.forEach { ride in
             let rideAmount = ride.calculateRideAmount()
             totalPoints += ride.calculatePoints()
 
             result+=String(format:"LE %.2f\n",rideAmount)
             
-            totalAmount+=rideAmount;
+            totalAmount+=rideAmount
         }
         
         result+=String(format:"Amount owed is LE %.2f, and %.2f point\n",totalAmount, totalPoints);
@@ -223,22 +208,5 @@ class Ride {
         points += service.applySurgePoints(isSurged: isSurged, surgeRate: surgeRate)
         points += service.applySurgePointsForServiceType(totalPoints: points)
         return points
-    }
-}
- 
-class Service {
-    
-    static let uberX:Int = 1
-    static let chopper:Int = 2
-    static let uberBlack:Int = 3
-    
-    var maxUsers: Int
-    var isPopular: Bool
-    var type: Int
-    
-    init(maxUsers: Int, isPopular: Bool, type: Int) {
-        self.maxUsers = maxUsers
-        self.isPopular = isPopular
-        self.type = type
     }
 }

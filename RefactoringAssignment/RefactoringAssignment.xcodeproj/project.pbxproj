@@ -8,9 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		B81078F823E376F4002D5A32 /* CustomerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81078F723E376F4002D5A32 /* CustomerTests.swift */; };
+		B810790723E38151002D5A32 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D282CDC923E29396008E32E7 /* main.swift */; };
+		B810790823E38151002D5A32 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D282CDD023E293AB008E32E7 /* Customer.swift */; };
 		D282CDCA23E29396008E32E7 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D282CDC923E29396008E32E7 /* main.swift */; };
 		D282CDD123E293AB008E32E7 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D282CDD023E293AB008E32E7 /* Customer.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B810790523E380AB002D5A32 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D282CDBE23E29396008E32E7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D282CDC523E29396008E32E7;
+			remoteInfo = RefactoringAssignment;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		D282CDC423E29396008E32E7 /* CopyFiles */ = {
@@ -101,6 +113,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				B810790623E380AB002D5A32 /* PBXTargetDependency */,
 			);
 			name = RefactoringAssignmentTests;
 			productName = RefactoringAssignmentTests;
@@ -177,6 +190,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B810790723E38151002D5A32 /* main.swift in Sources */,
+				B810790823E38151002D5A32 /* Customer.swift in Sources */,
 				B81078F823E376F4002D5A32 /* CustomerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -192,6 +207,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		B810790623E380AB002D5A32 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D282CDC523E29396008E32E7 /* RefactoringAssignment */;
+			targetProxy = B810790523E380AB002D5A32 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		B81078F423E376D0002D5A32 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -200,6 +223,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 969Y6REAB6;
+				ENABLE_TESTABILITY = YES;
 				INFOPLIST_FILE = RefactoringAssignmentTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -221,6 +245,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 969Y6REAB6;
+				ENABLE_TESTABILITY = YES;
 				INFOPLIST_FILE = RefactoringAssignmentTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

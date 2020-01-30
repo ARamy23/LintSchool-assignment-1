@@ -47,70 +47,8 @@ class Customer {
         var result:String = "Receipt for:" + self.name + "\n"
         
         for ride in familyRides {
-            
-            var rideAmount: Double = 50.0
-            
-            switch (ride.service) {
-                
-            case Service.uberX:
-                
-                rideAmount += Double(100*ride.time) // Time Multiplier
-                
-                if ride.kilometers > ride.time*50  { // Limit to apply extra cost
-                    rideAmount += Double((ride.kilometers - ride.time*50) * 2)
-                }
-                
-                rideAmount += 50 // Base Fare
-                
-            case Service.chopper:
-                
-                rideAmount += Double(200*ride.time) // Time Multiplier
-                
-            case Service.uberBlack:
-                
-                rideAmount += Double(150*ride.time) // Time Multiplier
-                
-                if ride.kilometers > ride.time*70 { // Time Limit to apply extra cost
-                    rideAmount += Double((ride.kilometers - ride.time*70) * 2)
-                }
-                
-                rideAmount += 60 // Base Fare
- 
-            default:
-                rideAmount += 0.0
-            }
-            
-            if ride.kilometers>200 { // Past 200 Kilos
-                if ride.time>120 && ride.service == Service.uberBlack { // past 120 minutes and is UberBlack
-                    
-                    rideAmount+=rideAmount*0.05 // Increase ride amount by 0.05%
-                
-                } else if ride.service==Service.uberX { // Is Uber X
-                    
-                    rideAmount+=rideAmount*0.05 // Increase ride amount by 0.05% directly
-                }
-            }
-            
-            if ride.service == Service.uberX || ride.service == Service.uberBlack {
-                for toll in ride.tolls {
-                    rideAmount += Double(toll) // if UberX or black, add tolls
-                }
-            }
-            
-            if ride.isSurged {
-                if ride.service == Service.uberX {
-                    rideAmount *= ride.surgeRate // if UberX add surgeRate to rideAmount
-                    totalPoints += (ride.surgeRate * 10 - 10) // and increase totalPoints
-                }
-            }
-            
-            totalPoints += rideAmount / 10.0 // increase total points by 10th of ride amount
-            
-            if ride.service == Service.chopper {
-                totalPoints *= 2 // if service is chopper, double totalPoints
-            } else if ride.service == Service.uberBlack {
-                totalPoints += 5 // if uberBlack add 5 points
-            }
+            let rideAmount = ride.calculateRideAmount()
+            totalPoints += ride.calculatePoints()
 
             result+=String(format:"LE %.2f\n",rideAmount)
             
@@ -277,6 +215,14 @@ class Ride {
         rideAmount += service.applyTolls(tolls: tolls)
         rideAmount += rideAmount * service.applySurgeMutliplier(isSurged: isSurged, surgeRate: surgeRate)
         return rideAmount
+    }
+    
+    func calculatePoints() -> Double {
+        var points = 0.0
+        points += service.applyBasePoints(rideAmount: calculateRideAmount())
+        points += service.applySurgePoints(isSurged: isSurged, surgeRate: surgeRate)
+        points += service.applySurgePointsForServiceType(totalPoints: points)
+        return points
     }
 }
  

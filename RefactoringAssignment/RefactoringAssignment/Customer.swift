@@ -123,6 +123,109 @@ class Customer {
     }
 }
  
+protocol ServiceProtocol {
+    var maxUsers: Int { get }
+    var isPopular: Bool { get }
+    var type: Int { get }
+    
+    func applyTimeMultiplier(time: Int) -> Double
+    func applyExtraCost(kilometers: Int, time: Int) -> Double
+    func applyBaseFare() -> Double
+    func applyTolls(tolls: [Int]) -> Double
+    func applyDistanceLimitMutliplier(kilometers: Int, time: Int) -> Double
+    func applySurgeMutliplier(isSurged: Bool, surgeRate: Double) -> Double
+}
+
+enum ServiceType {
+    case uberX
+    case chopper
+    case uberBlack
+}
+
+extension ServiceType: ServiceProtocol {
+    var maxUsers: Int {
+        return 1000 // dummy
+    }
+    
+    var isPopular: Bool {
+        switch self {
+        default:
+            return true // dummy
+        }
+    }
+    
+    var type: Int {
+        return -1 // dummy
+    }
+    
+    func applyTimeMultiplier(time: Int) -> Double {
+        switch self {
+        case .uberX:
+            return Double(100 * time)
+        case .uberBlack:
+            return Double(150 * time)
+        case .chopper:
+            return Double(200 * time)
+        }
+    }
+    
+    func applyExtraCost(kilometers: Int, time: Int) -> Double {
+        switch self {
+        case .uberX:
+            let didPassLimitToApplyExtraCost = kilometers > time * 50
+            return didPassLimitToApplyExtraCost ? Double((kilometers - time * 50) * 2) : 0
+        case .uberBlack:
+            let didPassLimitToApplyExtraCost = kilometers > time * 70
+            return didPassLimitToApplyExtraCost ? Double((kilometers - time * 70) * 2) : 0
+        case .chopper:
+            return 0
+        }
+    }
+    
+    func applyBaseFare() -> Double {
+        switch self {
+        case .uberX:
+            return 50
+        case .chopper:
+            return 0
+        case .uberBlack:
+            return 60
+        }
+    }
+    
+    func applyTolls(tolls: [Int]) -> Double {
+        guard self == .uberX || self == .uberBlack else { return 0 }
+        return Double(tolls.reduce(0, +))
+    }
+    
+    func applyDistanceLimitMutliplier(kilometers: Int, time: Int) -> Double {
+        let didPassDistanceLimit = kilometers > 200
+        let didPassTimeLimit = time > 120
+        
+        guard didPassDistanceLimit else { return 0 }
+        
+        if self == .uberBlack && didPassTimeLimit {
+            return 0.05
+        } else if self == .uberX {
+            return 0.05
+        } else {
+            return 0
+        }
+    }
+    
+    func applySurgeMutliplier(isSurged: Bool, surgeRate: Double) -> Double {
+        guard isSurged else { return 0 }
+        switch self {
+        case .uberX:
+            return surgeRate
+        case .uberBlack:
+            return 0
+        case .chopper:
+            return 0
+        }
+    }
+}
+
 class Ride {
     
     var service: Int

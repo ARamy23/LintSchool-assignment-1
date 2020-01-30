@@ -22,6 +22,17 @@ class Customer {
         familyRides.append(ride)
     }
     
+    /// Resposnibilities
+    /// 1. calculate totalAmount
+    ///     1. depend on KM
+    ///     2. depend on Time
+    ///     3. depend on Tolls
+    ///     4. depend on Surge
+    /// 2. caluclate totalPoints
+    ///     1. depend on RideAmount
+    ///     2. depend on Ride Type if chopper or UberBlack
+    /// 3. handle ride type -> Extract RideType to Protocol with one
+    /// 4.  print receipt
     func receipt() -> String {
         
         var totalAmount : Double = 0.0

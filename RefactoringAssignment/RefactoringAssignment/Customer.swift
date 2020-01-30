@@ -123,11 +123,13 @@ class Customer {
     }
 }
  
-protocol ServiceProtocol {
+protocol ServiceInfoProtocol {
     var maxUsers: Int { get }
     var isPopular: Bool { get }
     var type: Int { get }
-    
+}
+
+protocol ServiceCostsProtocol {
     func applyTimeMultiplier(time: Int) -> Double
     func applyExtraCost(kilometers: Int, time: Int) -> Double
     func applyBaseFare() -> Double
@@ -136,13 +138,35 @@ protocol ServiceProtocol {
     func applySurgeMutliplier(isSurged: Bool, surgeRate: Double) -> Double
 }
 
+protocol ServicePointsProtocol {
+    func applyBasePoints(rideAmount: Double) -> Double
+    func applySurgePoints(isSurged: Bool, surgeRate: Double) -> Double
+    func applySurgePointsForServiceType(totalPoints: Double) -> Double
+}
+
 enum ServiceType {
     case uberX
     case chopper
     case uberBlack
 }
 
-extension ServiceType: ServiceProtocol {
+extension ServiceType: ServiceInfoProtocol, ServiceCostsProtocol, ServicePointsProtocol {
+    func applySurgePoints(isSurged: Bool, surgeRate: Double) -> Double {
+        guard self == .uberX else { return 0 }
+        return surgeRate * 10 - 10
+    }
+    
+    func applySurgePointsForServiceType(totalPoints: Double) -> Double {
+        switch self {
+        case .uberX:
+            return 0
+        case .uberBlack:
+            return 5
+        case .chopper:
+            return totalPoints * 2
+        }
+    }
+    
     var maxUsers: Int {
         return 1000 // dummy
     }

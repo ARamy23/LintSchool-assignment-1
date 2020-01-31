@@ -141,8 +141,14 @@ extension ServiceType: ServiceProtocol {
     }
     
     func applyTolls(tolls: [Int]) -> Double {
-        guard self == .uberX || self == .uberBlack else { return 0 }
-        return Double(tolls.reduce(0, +))
+        switch self {
+        case .uberX:
+            return Double(tolls.reduce(0, +))
+        case .uberBlack:
+            return Double(tolls.reduce(0, +))
+        case .chopper:
+            return 0
+        }
     }
     
     func applyDistanceLimitMutliplier(kilometers: Int, time: Int) -> Double {
@@ -151,11 +157,12 @@ extension ServiceType: ServiceProtocol {
         
         guard didPassDistanceLimit else { return 0 }
         
-        if self == .uberBlack && didPassTimeLimit {
+        switch self {
+        case .uberBlack:
+            return didPassTimeLimit ? 0.05 : 0
+        case .uberX:
             return 0.05
-        } else if self == .uberX {
-            return 0.05
-        } else {
+        case .chopper:
             return 0
         }
     }

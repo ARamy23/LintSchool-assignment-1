@@ -8,13 +8,43 @@
 
 import Foundation
  
+struct Receipt: Encodable {
+    let customerName: String
+    let costPerRide: [Double]
+    let totalCost: Double
+    let totalPoints: Double
+}
+
+protocol ReceiptPrinter {
+    func print(receipt: Receipt) -> String
+}
+
+class ReceiptStringPrinter: ReceiptPrinter {
+    func print(receipt: Receipt) -> String {
+        let receiptHeader = "Receipt for: \(receipt.customerName)"
+        let receiptBody = receipt.costPerRide
+            .map { String(format: "LE %.2f", $0) }.joined(separator: "\n")
+        let receiptFooter = String(format:"Amount owed is LE %.2f, and %.2f point\n", receipt.totalCost, receipt.totalPoints)
+        return [receiptHeader, receiptBody, receiptFooter].joined(separator: "\n")
+    }
+}
+
+class ReceiptJSONPrinter: ReceiptPrinter {
+    func print(receipt: Receipt) -> String {
+        return String(describing: receipt.asDictionary())
+    }
+}
+
 class Customer {
+    
+    let receiptPrinter: ReceiptPrinter
     
     var name: String
     var familyRides: [Ride]
     
-    init(name:String) {
+    init(name:String, receiptPrinter: ReceiptPrinter) {
         self.name = name
+        self.receiptPrinter = receiptPrinter
         familyRides = []
     }
     
@@ -215,5 +245,16 @@ class Ride {
         points += service.applySurgePoints(isSurged: isSurged, surgeRate: surgeRate)
         points += service.applySurgePointsForServiceType(totalPoints: points)
         return points
+    }
+}
+
+extension Encodable {
+    func asDictionary() -> [String: Any] {
+        let serialized = (try? JSONSerialization.jsonObject(with: self.encode(), options: .allowFragments)) ?? nil
+        return serialized as? [String: Any] ?? [String: Any]()
+    }
+    
+    func encode() -> Data {
+        return (try? JSONEncoder().encode(self)) ?? Data()
     }
 }

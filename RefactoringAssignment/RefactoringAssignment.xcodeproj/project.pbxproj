@@ -7,9 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B81078F823E376F4002D5A32 /* CustomerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81078F723E376F4002D5A32 /* CustomerTests.swift */; };
+		B810790723E38151002D5A32 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D282CDC923E29396008E32E7 /* main.swift */; };
+		B810790823E38151002D5A32 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D282CDD023E293AB008E32E7 /* Customer.swift */; };
 		D282CDCA23E29396008E32E7 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D282CDC923E29396008E32E7 /* main.swift */; };
 		D282CDD123E293AB008E32E7 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D282CDD023E293AB008E32E7 /* Customer.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B810790523E380AB002D5A32 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D282CDBE23E29396008E32E7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D282CDC523E29396008E32E7;
+			remoteInfo = RefactoringAssignment;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		D282CDC423E29396008E32E7 /* CopyFiles */ = {
@@ -24,12 +37,22 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B81078EF23E376D0002D5A32 /* RefactoringAssignmentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RefactoringAssignmentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B81078F323E376D0002D5A32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B81078F723E376F4002D5A32 /* CustomerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerTests.swift; sourceTree = "<group>"; };
 		D282CDC623E29396008E32E7 /* RefactoringAssignment */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RefactoringAssignment; sourceTree = BUILT_PRODUCTS_DIR; };
 		D282CDC923E29396008E32E7 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		D282CDD023E293AB008E32E7 /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B81078EC23E376D0002D5A32 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D282CDC323E29396008E32E7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -40,10 +63,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B81078F023E376D0002D5A32 /* RefactoringAssignmentTests */ = {
+			isa = PBXGroup;
+			children = (
+				B81078F323E376D0002D5A32 /* Info.plist */,
+				B81078F723E376F4002D5A32 /* CustomerTests.swift */,
+			);
+			path = RefactoringAssignmentTests;
+			sourceTree = "<group>";
+		};
 		D282CDBD23E29396008E32E7 = {
 			isa = PBXGroup;
 			children = (
 				D282CDC823E29396008E32E7 /* RefactoringAssignment */,
+				B81078F023E376D0002D5A32 /* RefactoringAssignmentTests */,
 				D282CDC723E29396008E32E7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -52,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				D282CDC623E29396008E32E7 /* RefactoringAssignment */,
+				B81078EF23E376D0002D5A32 /* RefactoringAssignmentTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -68,6 +102,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		B81078EE23E376D0002D5A32 /* RefactoringAssignmentTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B81078F623E376D0002D5A32 /* Build configuration list for PBXNativeTarget "RefactoringAssignmentTests" */;
+			buildPhases = (
+				B81078EB23E376D0002D5A32 /* Sources */,
+				B81078EC23E376D0002D5A32 /* Frameworks */,
+				B81078ED23E376D0002D5A32 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B810790623E380AB002D5A32 /* PBXTargetDependency */,
+			);
+			name = RefactoringAssignmentTests;
+			productName = RefactoringAssignmentTests;
+			productReference = B81078EF23E376D0002D5A32 /* RefactoringAssignmentTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		D282CDC523E29396008E32E7 /* RefactoringAssignment */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D282CDCD23E29396008E32E7 /* Build configuration list for PBXNativeTarget "RefactoringAssignment" */;
@@ -95,6 +147,10 @@
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = LintSchool;
 				TargetAttributes = {
+					B81078EE23E376D0002D5A32 = {
+						CreatedOnToolsVersion = 11.3;
+						LastSwiftMigration = 1130;
+					};
 					D282CDC523E29396008E32E7 = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
@@ -114,11 +170,32 @@
 			projectRoot = "";
 			targets = (
 				D282CDC523E29396008E32E7 /* RefactoringAssignment */,
+				B81078EE23E376D0002D5A32 /* RefactoringAssignmentTests */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		B81078ED23E376D0002D5A32 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		B81078EB23E376D0002D5A32 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B810790723E38151002D5A32 /* main.swift in Sources */,
+				B810790823E38151002D5A32 /* Customer.swift in Sources */,
+				B81078F823E376F4002D5A32 /* CustomerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D282CDC223E29396008E32E7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -130,7 +207,58 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		B810790623E380AB002D5A32 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D282CDC523E29396008E32E7 /* RefactoringAssignment */;
+			targetProxy = B810790523E380AB002D5A32 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		B81078F423E376D0002D5A32 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 969Y6REAB6;
+				ENABLE_TESTABILITY = YES;
+				INFOPLIST_FILE = RefactoringAssignmentTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aramy23.RefactoringAssignmentTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		B81078F523E376D0002D5A32 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 969Y6REAB6;
+				ENABLE_TESTABILITY = YES;
+				INFOPLIST_FILE = RefactoringAssignmentTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aramy23.RefactoringAssignmentTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		D282CDCB23E29396008E32E7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -265,6 +393,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B81078F623E376D0002D5A32 /* Build configuration list for PBXNativeTarget "RefactoringAssignmentTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B81078F423E376D0002D5A32 /* Debug */,
+				B81078F523E376D0002D5A32 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D282CDC123E29396008E32E7 /* Build configuration list for PBXProject "RefactoringAssignment" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

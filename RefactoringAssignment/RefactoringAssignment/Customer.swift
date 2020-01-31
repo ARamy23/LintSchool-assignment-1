@@ -53,26 +53,27 @@ class Customer {
     }
     
     /// Resposnibilities
-    /// 1. print receipt
+    /// 1. accumlate ride costs, points and feed them to receipt printer
     func receipt() -> String {
-        
-        var totalAmount : Double = 0.0
-        var totalPoints : Double = 0.0
-
-        var result:String = "Receipt for:" + self.name + "\n"
+        var totalCost: Double = 0.0
+        var totalPoints: Double = 0.0
+        var costPerRide: [Double] = []
         
         familyRides.forEach { ride in
-            let rideAmount = ride.calculateRideAmount()
-            totalPoints += ride.calculatePoints()
-
-            result+=String(format:"LE %.2f\n",rideAmount)
+            let rideCost = ride.calculateRideAmount()
+            let ridePoints = ride.calculatePoints()
             
-            totalAmount+=rideAmount
+            totalCost += rideCost
+            totalPoints += ridePoints
+            costPerRide.append(rideCost)
         }
         
-        result+=String(format:"Amount owed is LE %.2f, and %.2f point\n",totalAmount, totalPoints);
+        let receipt = Receipt(customerName: name,
+                              costPerRide: costPerRide,
+                              totalCost: totalCost,
+                              totalPoints: totalPoints)
         
-        return result;
+        return receiptPrinter.print(receipt: receipt)
     }
 }
  

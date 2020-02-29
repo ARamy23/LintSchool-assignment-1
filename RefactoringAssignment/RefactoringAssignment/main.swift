@@ -8,7 +8,7 @@
 
 import Foundation
 
-let customer = Customer(name: "Ahmed", receiptPrinter: ReceiptStringPrinter())
+let customer = Customer(name: "Ahmed")
 
 customer.addFamilyRide(ride: Ride(service: ServiceType.uberBlack, kilometers: 300, time: 150, tolls: [5,4,6], isSurged: true, surgeRate: 1.5))
 customer.addFamilyRide(ride: Ride(service: ServiceType.uberX, kilometers: 200, time: 66, tolls: [5,6,6], isSurged: false, surgeRate: 0))
@@ -17,7 +17,9 @@ customer.addFamilyRide(ride: Ride(service: ServiceType.uberBlack, kilometers: 3,
 customer.addFamilyRide(ride: Ride(service: ServiceType.uberX, kilometers: 200, time: 90, tolls: [5,4,6], isSurged: false, surgeRate: 0))
 customer.addFamilyRide(ride: Ride(service: ServiceType.chopper, kilometers: 140, time: 130, tolls: [5,6,6], isSurged: true, surgeRate: 1.3))
 
-print(customer.receipt())
+let customer1Receipt = customer.receipt()
+let stringReceiptPrinter = ReceiptStringPrinter()
+print(stringReceiptPrinter.print(receipt: customer1Receipt))
 
 // it should be
 /*
@@ -32,7 +34,7 @@ print(customer.receipt())
  */
 
 
-let customer2 = Customer(name: "Ramy", receiptPrinter: ReceiptJSONPrinter())
+let customer2 = Customer(name: "Ramy")
 
 customer2.addFamilyRide(ride: Ride(service: ServiceType.uberBlack, kilometers: 300, time: 150, tolls: [5,4,6], isSurged: true, surgeRate: 1.5))
 customer2.addFamilyRide(ride: Ride(service: ServiceType.uberX, kilometers: 200, time: 66, tolls: [5,6,6], isSurged: false, surgeRate: 0))
@@ -41,4 +43,7 @@ customer2.addFamilyRide(ride: Ride(service: ServiceType.uberBlack, kilometers: 3
 customer2.addFamilyRide(ride: Ride(service: ServiceType.uberX, kilometers: 200, time: 90, tolls: [5,4,6], isSurged: false, surgeRate: 0))
 customer2.addFamilyRide(ride: Ride(service: ServiceType.chopper, kilometers: 140, time: 130, tolls: [5,6,6], isSurged: true, surgeRate: 1.3))
 
-print(customer2.receipt())
+
+let customer2Receipt = customer2.receipt()
+let jsonReceiptPrinter = ReceiptJSONPrinter()
+print(jsonReceiptPrinter.print(receipt: customer2Receipt))

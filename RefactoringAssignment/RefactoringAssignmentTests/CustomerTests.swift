@@ -14,7 +14,7 @@ class CustomerTests: XCTestCase {
     var sut: Customer!
     
     override func setUp() {
-        sut = Customer(name: "Ahmed", receiptPrinter: ReceiptStringPrinter())
+        sut = Customer(name: "Ahmed")
     }
 
     override func tearDown() {
@@ -31,11 +31,14 @@ class CustomerTests: XCTestCase {
         sut.addFamilyRide(ride: Ride(service: ServiceType.chopper, kilometers: 140, time: 130, tolls: [5,6,6], isSurged: true, surgeRate: 1.3))
         
         // When
-        let returnedString = sut.receipt()
+        let returnedReceipt = sut.receipt()
+        let stringReceiptPrinter = ReceiptStringPrinter()
+        let returnedString = stringReceiptPrinter.print(receipt: returnedReceipt)
         
         // Then
+
         let expectedString = """
-                            Receipt for:Ahmed
+                            Receipt for: Ahmed
                             LE 23755.50
                             LE 6717.00
                             LE 11050.00
@@ -50,7 +53,6 @@ class CustomerTests: XCTestCase {
     
     func testReceiptWithJSONPrinterMatchesExpectedString() {
         // Given
-        sut = Customer(name: "Ramy", receiptPrinter: ReceiptJSONPrinter())
         sut.addFamilyRide(ride: Ride(service: ServiceType.uberBlack, kilometers: 300, time: 150, tolls: [5,4,6], isSurged: true, surgeRate: 1.5))
         sut.addFamilyRide(ride: Ride(service: ServiceType.uberX, kilometers: 200, time: 66, tolls: [5,6,6], isSurged: false, surgeRate: 0))
         sut.addFamilyRide(ride: Ride(service: ServiceType.chopper, kilometers: 160, time: 55, tolls: [5,4,6], isSurged: false, surgeRate: 0))
@@ -59,14 +61,16 @@ class CustomerTests: XCTestCase {
         sut.addFamilyRide(ride: Ride(service: ServiceType.chopper, kilometers: 140, time: 130, tolls: [5,6,6], isSurged: true, surgeRate: 1.3))
         
         // When
-        let returnedString = sut.receipt()
+        let returnedReceipt = sut.receipt()
+        let stringReceiptPrinter = ReceiptJSONPrinter()
+        let returnedString = stringReceiptPrinter.print(receipt: returnedReceipt)
         
         // Then
         
         // NOTE: we are comparing this way since dictionaries orders
         // its elements randomly
         
-        let namePattern = "\"customerName\": Ramy"
+        let namePattern = "\"customerName\": Ahmed"
         let totalCostPattern = "\"totalCost\": 80114.5"
         let totalPointsPattern = "\"totalPoints\": 15421.45"
         

@@ -36,25 +36,21 @@ class ReceiptJSONPrinter: ReceiptPrinter {
 }
 
 class Customer {
-    
-    let receiptPrinter: ReceiptPrinter
-    
     var name: String
     var familyRides: [Ride]
     
-    init(name:String, receiptPrinter: ReceiptPrinter) {
+    init(name:String) {
         self.name = name
-        self.receiptPrinter = receiptPrinter
         familyRides = []
     }
     
-    func addFamilyRide(ride:Ride) {
+    func addFamilyRide(ride: Ride) {
         familyRides.append(ride)
     }
     
     /// Resposnibilities
     /// 1. accumlate ride costs, points and feed them to receipt printer
-    func receipt() -> String {
+    func receipt() -> Receipt {
         var totalCost: Double = 0.0
         var totalPoints: Double = 0.0
         var costPerRide: [Double] = []
@@ -68,12 +64,10 @@ class Customer {
             costPerRide.append(rideCost)
         }
         
-        let receipt = Receipt(customerName: name,
-                              costPerRide: costPerRide,
-                              totalCost: totalCost,
-                              totalPoints: totalPoints)
-        
-        return receiptPrinter.print(receipt: receipt)
+        return Receipt(customerName: name,
+                       costPerRide: costPerRide,
+                       totalCost: totalCost,
+                       totalPoints: totalPoints)
     }
 }
  
